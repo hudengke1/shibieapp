@@ -1,0 +1,23 @@
+ninja: Entering directory `D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\.cxx\cmake\debug\x86_64'
+[1/4] Building CXX object CMakeFiles/yoloncnn.dir/hepler.cpp.o
+[2/4] Building CXX object CMakeFiles/yoloncnn.dir/yoloncnn.cpp.o
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yoloncnn.cpp:155:86: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+            __android_log_print(ANDROID_LOG_ERROR, "ncnn", "detect result num = %d", objects.size());
+                                                                                ~~   ^~~~~~~~~~~~~~
+                                                                                %lu
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yoloncnn.cpp:426:58: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+    __android_log_print(ANDROID_LOG_ERROR, "ncnn", "%d", objects.size());
+                                                    ~~   ^~~~~~~~~~~~~~
+                                                    %lu
+2 warnings generated.
+[3/4] Building CXX object CMakeFiles/yoloncnn.dir/yolo.cpp.o
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yolo.cpp:1302:84: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+    __android_log_print(ANDROID_LOG_ERROR, "fallDetectNcnn", "proposals size = %d",proposals.size());
+                                                                               ~~  ^~~~~~~~~~~~~~~~
+                                                                               %lu
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yolo.cpp:1305:86: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+    __android_log_print(ANDROID_LOG_ERROR, "fallDetectNcnn", "proposals size11 = %d",proposals.size());
+                                                                                 ~~  ^~~~~~~~~~~~~~~~
+                                                                                 %lu
+2 warnings generated.
+[4/4] Linking CXX shared library D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\build\intermediates\cmake\debug\obj\x86_64\libyoloncnn.so

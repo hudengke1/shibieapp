@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace "com.tencent.yoloncnn"
+    compileSdk 34
+    // 指定 NDK 版本(与 GitHub Actions 云端安装的版本一致)
+    ndkVersion "26.1.10909125"
+
+    defaultConfig {
+        applicationId "com.tencent.yoloncnn"
+        archivesBaseName = "$applicationId"
+
+        minSdkVersion 24
+
+        // 只编译真机常用的两种 ABI(跳过 x86/x86_64 模拟器架构),加快编译、减小 APK
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/jni/CMakeLists.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // ActivityCompat / ContextCompat 所在的 AndroidX 库
+    implementation 'androidx.core:core:1.13.1'
+}

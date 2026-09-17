@@ -1,0 +1,16 @@
+# Gradle / 构建产物
+.gradle/
+build/
+app/build/
+captures/
+
+# 本地环境配置(不应提交,含本机 SDK 路径)
+local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# 日志
+*.log

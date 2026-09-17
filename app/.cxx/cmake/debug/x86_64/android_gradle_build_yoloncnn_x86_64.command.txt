@@ -1,0 +1,7 @@
+Executable : C:\Users\guozhenlong\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+arguments : 
+-C
+D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\.cxx\cmake\debug\x86_64
+yoloncnn
+jvmArgs : 
+

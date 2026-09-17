@@ -1,0 +1,3 @@
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86_64/CMakeFiles/yoloncnn.dir
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86_64/CMakeFiles/edit_cache.dir
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86_64/CMakeFiles/rebuild_cache.dir

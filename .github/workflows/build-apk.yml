@@ -1,0 +1,44 @@
+name: Build APK
+
+# 触发方式:推送到 main/master 自动构建;也可在 Actions 页面手动点击运行
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK (cmdline-tools)
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK / CMake / platform / build-tools
+        run: |
+          sdkmanager --install \
+            "ndk;26.1.10909125" \
+            "cmake;3.22.1" \
+            "platforms;android-34" \
+            "build-tools;34.0.0"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace --info
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/*.apk

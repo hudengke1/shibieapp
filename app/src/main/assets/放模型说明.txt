@@ -1,0 +1,14 @@
+把你的头盔检测模型放到这个 assets 目录,文件名必须是:
+
+    helmet.param
+    helmet.bin
+
+来源:训练导出并转换后的 NCNN 模型(见 training/export_ncnn.py 产出),
+把 best.param / best.bin 重命名为 helmet.param / helmet.bin 后拷进来即可。
+
+说明:
+- 代码里已配置为加载 "helmet" 模型(输入尺寸 640,8 个类别)。
+- 类别顺序: person, car, bus, truck, motorcycle, bicycle, helmet, head
+- 没放模型时 App 能编译安装,但点"开始识别"会因找不到模型而无输出。
+
+(本说明文件可保留,体积极小,不影响运行)

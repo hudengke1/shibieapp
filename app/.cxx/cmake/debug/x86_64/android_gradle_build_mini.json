@@ -1,0 +1,45 @@
+{
+  "buildFiles": [
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\jni\\abi-x86_64\\OpenCVModules.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\ncnn\\ncnn.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\jni\\abi-x86_64\\OpenCVModules-release.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\glslang\\glslang-targets-release.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\jni\\OpenCVConfig-version.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\glslang\\glslang-config.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\jni\\OpenCVConfig.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\CMakeLists.txt",
+    "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\build\\cmake\\compiler_id.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\ncnn\\ncnn-release.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\jni\\abi-x86_64\\OpenCVConfig.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\glslang\\glslang-config-version.cmake",
+    "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\build\\cmake\\android.toolchain.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\ncnn\\ncnnConfig.cmake",
+    "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\cmake\\glslang\\glslang-targets.cmake",
+    "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\build\\cmake\\android-legacy.toolchain.cmake",
+    "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\.cxx\\cmake\\debug\\x86_64\" clean"
+  ],
+  "buildTargetsCommand": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\.cxx\\cmake\\debug\\x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "yoloncnn-Debug-x86_64": {
+      "artifactName": "yoloncnn",
+      "buildCommand": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\.cxx\\cmake\\debug\\x86_64\" yoloncnn",
+      "abi": "x86_64",
+      "output": "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\build\\intermediates\\cmake\\debug\\obj\\x86_64\\libyoloncnn.so",
+      "runtimeFiles": [
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libncnn.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\staticlibs\\x86_64\\libopencv_core.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\staticlibs\\x86_64\\libopencv_imgproc.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libglslang.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libSPIRV.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libMachineIndependent.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libOGLCompiler.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libOSDependent.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ncnn-20240102-android-vulkan\\x86_64\\lib\\libGenericCodeGen.a",
+        "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\opencv-mobile-4.9.0-android\\sdk\\native\\staticlibs\\x86_64\\libopencv_core.a"
+      ]
+    }
+  }
+}

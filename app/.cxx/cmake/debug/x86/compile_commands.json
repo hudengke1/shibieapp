@@ -1,0 +1,25 @@
+[
+{
+  "directory": "D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86",
+  "command": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android24 --sysroot=C:/Users/guozhenlong/AppData/Local/Android/Sdk/ndk/25.0.8775105/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dyoloncnn_EXPORTS -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/ncnn-20240102-android-vulkan/x86/include/ncnn -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/opencv-mobile-4.9.0-android/sdk/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC   -fno-rtti -fno-exceptions -std=gnu++11 -o CMakeFiles\\yoloncnn.dir\\yoloncnn.cpp.o -c D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\yoloncnn.cpp",
+  "file": "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\yoloncnn.cpp"
+},
+
+{
+  "directory": "D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86",
+  "command": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android24 --sysroot=C:/Users/guozhenlong/AppData/Local/Android/Sdk/ndk/25.0.8775105/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dyoloncnn_EXPORTS -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/ncnn-20240102-android-vulkan/x86/include/ncnn -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/opencv-mobile-4.9.0-android/sdk/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC   -fno-rtti -fno-exceptions -std=gnu++11 -o CMakeFiles\\yoloncnn.dir\\yolo.cpp.o -c D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\yolo.cpp",
+  "file": "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\yolo.cpp"
+},
+
+{
+  "directory": "D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86",
+  "command": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android24 --sysroot=C:/Users/guozhenlong/AppData/Local/Android/Sdk/ndk/25.0.8775105/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dyoloncnn_EXPORTS -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/ncnn-20240102-android-vulkan/x86/include/ncnn -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/opencv-mobile-4.9.0-android/sdk/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC   -fno-rtti -fno-exceptions -std=gnu++11 -o CMakeFiles\\yoloncnn.dir\\ndkcamera.cpp.o -c D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ndkcamera.cpp",
+  "file": "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\ndkcamera.cpp"
+},
+
+{
+  "directory": "D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/.cxx/cmake/debug/x86",
+  "command": "C:\\Users\\guozhenlong\\AppData\\Local\\Android\\Sdk\\ndk\\25.0.8775105\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android24 --sysroot=C:/Users/guozhenlong/AppData/Local/Android/Sdk/ndk/25.0.8775105/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dyoloncnn_EXPORTS -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/ncnn-20240102-android-vulkan/x86/include/ncnn -isystem D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/opencv-mobile-4.9.0-android/sdk/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC   -fno-rtti -fno-exceptions -std=gnu++11 -o CMakeFiles\\yoloncnn.dir\\hepler.cpp.o -c D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\hepler.cpp",
+  "file": "D:\\1_ai_cv\\0-gzl\\gzl_yolo_android\\ncnn-android-yolo-picture-stream\\app\\src\\main\\jni\\hepler.cpp"
+}
+]

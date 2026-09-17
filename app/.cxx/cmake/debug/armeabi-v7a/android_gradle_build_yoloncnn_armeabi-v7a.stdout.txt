@@ -1,0 +1,5 @@
+ninja: Entering directory `D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\.cxx\cmake\debug\armeabi-v7a'
+[1/4] Building CXX object CMakeFiles/yoloncnn.dir/hepler.cpp.o
+[2/4] Building CXX object CMakeFiles/yoloncnn.dir/yoloncnn.cpp.o
+[3/4] Building CXX object CMakeFiles/yoloncnn.dir/yolo.cpp.o
+[4/4] Linking CXX shared library D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\build\intermediates\cmake\debug\obj\armeabi-v7a\libyoloncnn.so

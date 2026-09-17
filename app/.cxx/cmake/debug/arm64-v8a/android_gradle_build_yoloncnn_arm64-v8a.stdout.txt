@@ -1,0 +1,12 @@
+ninja: Entering directory `D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\.cxx\cmake\debug\arm64-v8a'
+[1/2] Building CXX object CMakeFiles/yoloncnn.dir/yoloncnn.cpp.o
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yoloncnn.cpp:155:86: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+            __android_log_print(ANDROID_LOG_ERROR, "ncnn", "detect result num = %d", objects.size());
+                                                                                ~~   ^~~~~~~~~~~~~~
+                                                                                %lu
+D:/1_ai_cv/0-gzl/gzl_yolo_android/ncnn-android-yolo-picture-stream/app/src/main/jni/yoloncnn.cpp:426:58: warning: format specifies type 'int' but the argument has type 'std::vector<com::tencent::yoloncnn::Object>::size_type' (aka 'unsigned long') [-Wformat]
+    __android_log_print(ANDROID_LOG_ERROR, "ncnn", "%d", objects.size());
+                                                    ~~   ^~~~~~~~~~~~~~
+                                                    %lu
+2 warnings generated.
+[2/2] Linking CXX shared library D:\1_ai_cv\0-gzl\gzl_yolo_android\ncnn-android-yolo-picture-stream\app\build\intermediates\cmake\debug\obj\arm64-v8a\libyoloncnn.so
