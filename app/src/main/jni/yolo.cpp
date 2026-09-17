@@ -13,6 +13,7 @@
 // specific language governing permissions and limitations under the License.
 
 #include "yolo.h"
+#include "cn_font.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -1383,21 +1384,23 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
 {
     const bool is_helmet = (modeltype != NULL && strcmp(modeltype, "helmet") == 0);
 
+    // 初始化中文字体渲染(幂等,仅首次加载系统字体)
+    cn_font_init();
+
     // 本项目 8 类(顺序必须与 training/data.yaml 的 names 完全一致)
     static const char* helmet_names[] = {
-            "person", "car", "bus", "truck", "motorcycle", "bicycle", "helmet", "head"
+            "行人", "轿车", "公交车", "卡车", "摩托车", "自行车", "头盔", "头部"
     };
     // COCO 80 类(临时演示模型 yolov8n 使用)
     static const char* coco_names[] = {
-            "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light",
-            "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow",
-            "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee",
-            "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
-            "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple",
-            "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch",
-            "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone",
-            "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
-            "hair drier", "toothbrush"
+            "行人", "自行车", "汽车", "摩托车", "飞机", "公交车", "火车", "卡车", "船", "交通灯",
+            "消防栓", "停止标志", "停车计时表", "长椅", "鸟", "猫", "狗", "马", "羊", "牛",
+            "大象", "熊", "斑马", "长颈鹿", "背包", "雨伞", "手提包", "领带", "行李箱", "飞盘",
+            "滑雪板", "单板滑雪", "运动球", "风筝", "棒球棒", "棒球手套", "滑板", "冲浪板", "网球拍", "瓶子",
+            "酒杯", "杯子", "叉子", "刀", "勺子", "碗", "香蕉", "苹果", "三明治", "橙子",
+            "西兰花", "胡萝卜", "热狗", "披萨", "甜甜圈", "蛋糕", "椅子", "沙发", "盆栽", "床",
+            "餐桌", "马桶", "电视", "笔记本电脑", "鼠标", "遥控器", "键盘", "手机", "微波炉", "烤箱",
+            "烤面包机", "水槽", "冰箱", "书", "时钟", "花瓶", "剪刀", "泰迪熊", "吹风机", "牙刷"
     };
     const char** class_names = is_helmet ? helmet_names : coco_names;
     const int num_class = is_helmet ? 8 : 80;
@@ -1469,36 +1472,42 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
 
         cv::rectangle(rgb, obj.rect, cc, 2);
 
-        // 标签文字(OpenCV putText 不支持中文,统一用 ASCII)
+        // 标签文字(UTF-8 中文,由 cn_font 调用系统字体渲染)
         char text[256];
         if (!is_helmet)
             sprintf(text, "%s %.0f%%", cls_name, obj.prob * 100);
         else if (obj.label == LABEL_HEAD && is_rider)
-            sprintf(text, "NO-HELMET! %.0f%%", obj.prob * 100);
+            sprintf(text, "未戴头盔! %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_HEAD)
-            sprintf(text, "head %.0f%%", obj.prob * 100);
+            sprintf(text, "头部 %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_HELMET && is_rider)
-            sprintf(text, "helmet(rider) %.0f%%", obj.prob * 100);
+            sprintf(text, "头盔(骑车人) %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_PERSON && is_rider)
-            sprintf(text, "rider %.0f%%", obj.prob * 100);
+            sprintf(text, "骑车人 %.0f%%", obj.prob * 100);
         else
             sprintf(text, "%s %.0f%%", cls_name, obj.prob * 100);
 
-        int baseLine = 0;
-        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+        const float font_size = 26.f;
+        const int pad = 2;
+        cv::Size label_size = cn_font_measure(text, font_size);
 
-        int x = obj.rect.x;
-        int y = obj.rect.y - label_size.height - baseLine;
+        int x = (int)obj.rect.x;
+        int y = (int)obj.rect.y - label_size.height - pad * 2;
         if (y < 0)
             y = 0;
-        if (x + label_size.width > rgb.cols)
-            x = rgb.cols - label_size.width;
-
-        cv::rectangle(rgb, cv::Rect(cv::Point(x, y), cv::Size(label_size.width, label_size.height + baseLine)), cc, -1);
+        if (x + label_size.width + pad * 2 > rgb.cols)
+            x = rgb.cols - label_size.width - pad * 2;
+        if (x < 0)
+            x = 0;
 
         cv::Scalar textcc = (cc[0] + cc[1] + cc[2] >= 381) ? cv::Scalar(0, 0, 0) : cv::Scalar(255, 255, 255);
 
-        cv::putText(rgb, text, cv::Point(x, y + label_size.height), cv::FONT_HERSHEY_SIMPLEX, 0.5, textcc, 1);
+        // 背景色块 + 中文文字
+        if (label_size.width > 0 && label_size.height > 0) {
+            cv::rectangle(rgb, cv::Rect(cv::Point(x, y),
+                                        cv::Size(label_size.width + pad * 2, label_size.height + pad * 2)), cc, -1);
+            cn_font_draw(rgb, text, x + pad, y + pad, font_size, textcc);
+        }
     }
 
     return 0;
