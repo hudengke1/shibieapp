@@ -20,15 +20,22 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      # ubuntu-latest runner 已预装 Android SDK / NDK / CMake,无需第三方 setup action。
-      # 这里只接受许可,并补装项目指定的精确版本(已存在则秒过)。
+      # ubuntu-latest runner 已预装 Android SDK / NDK / CMake。
+      # 本步只做“接受许可 + 补装指定版本”的兜底,永不因非零退出而中断。
       - name: Prepare Android SDK licenses & packages
+        shell: bash
         run: |
+          set +e
           echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          which sdkmanager
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager --install "ndk;26.1.10909125" "cmake;3.22.1" "platforms;android-34" "build-tools;34.0.0" || true
+          SDKMANAGER="$(command -v sdkmanager)"
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          fi
+          echo "Using sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1
+          "$SDKMANAGER" --install "ndk;26.1.10909125" "cmake;3.22.1" "platforms;android-34" "build-tools;34.0.0"
+          echo "SDK prepare done (any errors above are non-fatal)."
+          exit 0
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
