@@ -14,11 +14,14 @@
 
 #include "yolo.h"
 #include "cn_font.h"
+#include "tracker.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "cpu.h"
+
+#include <chrono>
 
 static float fast_exp(float x)
 {
@@ -1410,12 +1413,19 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
     const int LABEL_HELMET = 6;   // 戴头盔
     const int LABEL_HEAD = 7;     // 未戴头盔(裸头)
 
+    // 目标跟踪 + 单目测距测速(static 跨帧持久,仅初始化一次)
+    static Tracker s_tracker;
+    double now_sec = std::chrono::duration<double>(
+            std::chrono::steady_clock::now().time_since_epoch()).count();
+    s_tracker.update(objects, now_sec, rgb.cols, rgb.rows, is_helmet);
+    const std::vector<Track>& tracks = s_tracker.tracks();
+
     // 先收集所有两轮车框,用于判断"骑车人"(仅头盔模型)
     std::vector<const com::tencent::yoloncnn::Object*> two_wheelers;
     if (is_helmet) {
-        for (size_t i = 0; i < objects.size(); i++) {
-            if (objects[i].label == LABEL_MOTORCYCLE || objects[i].label == LABEL_BICYCLE)
-                two_wheelers.push_back(&objects[i]);
+        for (size_t i = 0; i < tracks.size(); i++) {
+            if (tracks[i].obj.label == LABEL_MOTORCYCLE || tracks[i].obj.label == LABEL_BICYCLE)
+                two_wheelers.push_back(&tracks[i].obj);
         }
     }
 
@@ -1443,9 +1453,10 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
 
     int color_index = 0;
 
-    for (size_t i = 0; i < objects.size(); i++)
+    for (size_t i = 0; i < tracks.size(); i++)
     {
-        const com::tencent::yoloncnn::Object& obj = objects[i];
+        const Track& tk = tracks[i];
+        const com::tencent::yoloncnn::Object& obj = tk.obj;
 
         // 类别名(越界保护:label 超出类别数时不崩溃)
         const char* cls_name = (obj.label >= 0 && obj.label < num_class) ? class_names[obj.label] : "unknown";
@@ -1473,19 +1484,32 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
         cv::rectangle(rgb, obj.rect, cc, 2);
 
         // 标签文字(UTF-8 中文,由 cn_font 调用系统字体渲染)
-        char text[256];
+        char base[192];
         if (!is_helmet)
-            sprintf(text, "%s %.0f%%", cls_name, obj.prob * 100);
+            sprintf(base, "%s %.0f%%", cls_name, obj.prob * 100);
         else if (obj.label == LABEL_HEAD && is_rider)
-            sprintf(text, "未戴头盔! %.0f%%", obj.prob * 100);
+            sprintf(base, "未戴头盔! %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_HEAD)
-            sprintf(text, "头部 %.0f%%", obj.prob * 100);
+            sprintf(base, "头部 %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_HELMET && is_rider)
-            sprintf(text, "头盔(骑车人) %.0f%%", obj.prob * 100);
+            sprintf(base, "头盔(骑车人) %.0f%%", obj.prob * 100);
         else if (obj.label == LABEL_PERSON && is_rider)
-            sprintf(text, "骑车人 %.0f%%", obj.prob * 100);
+            sprintf(base, "骑车人 %.0f%%", obj.prob * 100);
         else
-            sprintf(text, "%s %.0f%%", cls_name, obj.prob * 100);
+            sprintf(base, "%s %.0f%%", cls_name, obj.prob * 100);
+
+        // 追加接近/远离速度(单目测距估计,正=接近)
+        char text[256];
+        if (tk.has_speed) {
+            if (tk.speed >= 0.3f)
+                sprintf(text, "%s 接近%.1fm/s", base, tk.speed);
+            else if (tk.speed <= -0.3f)
+                sprintf(text, "%s 远离%.1fm/s", base, -tk.speed);
+            else
+                sprintf(text, "%s 静止", base);
+        } else {
+            sprintf(text, "%s", base);
+        }
 
         const float font_size = 26.f;
         const int pad = 2;
