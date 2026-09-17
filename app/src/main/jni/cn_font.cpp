@@ -117,7 +117,7 @@ namespace {
     void vertical_metrics(int sz, int& ascent_px, int& height_px) {
         float scale = stbtt_ScaleForPixelHeight(&g_info, (float)sz);
         int a = 0, d = 0, lg = 0;
-        stbtt_GetFontVerticalLineMetrics(&g_info, &a, &d, &lg);
+        stbtt_GetFontVMetrics(&g_info, &a, &d, &lg);
         ascent_px = (int)(a * scale + 0.5f);
         height_px = (int)((a - d) * scale + 0.5f);
         if (height_px <= 0) height_px = sz;
