@@ -1454,7 +1454,10 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
     int color_index = 0;
     bool any_alert = false;
     float max_kmh = 0.0f;
-    const float ALERT_KMH = 10.0f;   // 接近速度超过此值(km/h)触发快速接近警告
+    float min_ttc = 1e9f;            // 当前最小碰撞时间(秒)
+    const float TTC_ALERT = 3.0f;    // 碰撞时间 <= 此值(秒)判为有碰撞风险
+    const float MAX_DIST = 60.0f;    // 距离超过此值(米)不报警(太远,暂无风险)
+    const float MIN_KMH = 6.0f;      // 接近速度低于此值(km/h)不报警(近乎静止/测速抖动)
 
     for (size_t i = 0; i < tracks.size(); i++)
     {
@@ -1472,18 +1475,25 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
             }
         }
 
-        // 快速接近判定(km/h)
+        // 碰撞风险判定:接近 + 距离/接近速度 => 碰撞时间 TTC
         float kmh = tk.speed * 3.6f;
-        bool fast_approach = tk.has_speed && tk.approaching && kmh >= ALERT_KMH;
-        if (fast_approach) {
+        bool collision_risk = false;
+        float ttc = 1e9f;
+        if (tk.has_speed && tk.approaching && tk.distance > 0.1f &&
+            tk.distance <= MAX_DIST && kmh >= MIN_KMH) {
+            ttc = tk.distance / tk.speed;   // 秒 = 距离(米) / 接近速度(米/秒)
+            if (ttc <= TTC_ALERT) collision_risk = true;
+        }
+        if (collision_risk) {
             any_alert = true;
             if (kmh > max_kmh) max_kmh = kmh;
+            if (ttc < min_ttc) min_ttc = ttc;
         }
 
-        // 颜色:快速接近=红加粗(最高优先警告),未戴头盔=红,戴头盔=绿,其余按调色板
+        // 颜色:有碰撞风险=红加粗(最高优先警告),未戴头盔=红,戴头盔=绿,其余按调色板
         cv::Scalar cc;
         int thickness = 2;
-        if (fast_approach) {
+        if (collision_risk) {
             cc = cv::Scalar(0, 0, 255);        // BGR: 红
             thickness = 5;
         } else if (is_helmet && obj.label == LABEL_HEAD) {
@@ -1498,20 +1508,20 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
 
         cv::rectangle(rgb, obj.rect, cc, thickness);
 
-        // 标签文字(UTF-8 中文,由 cn_font 调用系统字体渲染)
+        // 标签文字(UTF-8 中文,由 cn_font 调用系统字体渲染;不显示置信度百分比)
         char base[192];
         if (!is_helmet)
-            sprintf(base, "%s %.0f%%", cls_name, obj.prob * 100);
+            sprintf(base, "%s", cls_name);
         else if (obj.label == LABEL_HEAD && is_rider)
-            sprintf(base, "未戴头盔! %.0f%%", obj.prob * 100);
+            sprintf(base, "未戴头盔!");
         else if (obj.label == LABEL_HEAD)
-            sprintf(base, "头部 %.0f%%", obj.prob * 100);
+            sprintf(base, "头部");
         else if (obj.label == LABEL_HELMET && is_rider)
-            sprintf(base, "头盔(骑车人) %.0f%%", obj.prob * 100);
+            sprintf(base, "头盔(骑车人)");
         else if (obj.label == LABEL_PERSON && is_rider)
-            sprintf(base, "骑车人 %.0f%%", obj.prob * 100);
+            sprintf(base, "骑车人");
         else
-            sprintf(base, "%s %.0f%%", cls_name, obj.prob * 100);
+            sprintf(base, "%s", cls_name);
 
         // 追加接近/远离速度(km/h,单目测距估计,正=接近)
         char text[256];
@@ -1549,12 +1559,15 @@ int Yolo::draw(cv::Mat& rgb, const std::vector<com::tencent::yoloncnn::Object>& 
         }
     }
 
-    // 顶部快速接近警告横幅(仅当有目标快速接近时)
+    // 顶部碰撞风险警告横幅(仅当有目标存在碰撞风险时)
     if (any_alert) {
         const int banner_h = 64;
         cv::rectangle(rgb, cv::Rect(0, 0, rgb.cols, banner_h), cv::Scalar(0, 0, 220), -1);
         char warn[128];
-        sprintf(warn, "注意 前方目标快速接近 %.0fkm/h", max_kmh);
+        if (min_ttc < 1.0f)
+            sprintf(warn, "危险 前方碰撞风险 约%.1f秒", min_ttc);
+        else
+            sprintf(warn, "注意 前方碰撞风险 约%.0f秒 %.0fkm/h", min_ttc, max_kmh);
         const float wf = 34.f;
         cv::Size ws = cn_font_measure(warn, wf);
         int wx = (rgb.cols - ws.width) / 2;
